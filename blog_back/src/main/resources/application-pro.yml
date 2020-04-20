@@ -1,0 +1,9 @@
+server:
+  port: 8090
+
+logging:
+  level:
+    root: warn
+    self.hsb: info
+  file:
+    name: log/blog-pro.log

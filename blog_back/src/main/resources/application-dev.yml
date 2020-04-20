@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hsblog?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF8
+    username: root
+    password: bshz1998228
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+server:
+  port: 8088
+logging:
+  level:
+    root: info
+    self.hsb: debug
+  file:
+    name: log/blog-dev.log
+
+
+image.path: F:/images/
+file.url: http://127.0.0.1:8088/hsblog/images/upload/
