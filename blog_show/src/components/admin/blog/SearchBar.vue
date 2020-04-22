@@ -46,7 +46,7 @@
 	    },
 	    methods: {
             onSubmit() {
-	            this.$emit("blogQuery", this.blogQuery);
+	            this.$emit("blogQuery", 0);
             },
 	    }
     }

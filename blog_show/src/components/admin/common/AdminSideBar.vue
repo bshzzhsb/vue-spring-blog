@@ -35,6 +35,16 @@
 						<span :class="(isCollapse?'s-nav-item-span':'b-nav-item-span')+' nav-item-span'">分类</span>
 					</router-link>
 				</li>
+				<li class="nav-item">
+					<router-link to="/admin/moodmanager" :class="(isCollapse?'s-nav-item-a':'b-nav-item-a')+' nav-item-a'">
+						<span :class="(isCollapse?'s-nav-item-span':'b-nav-item-span')+' nav-item-span'">
+							<svg class="iconfont" style="font-size: 1.2rem" aria-hidden="true">
+							    <use xlink:href="#iconxingxi"></use>
+							</svg>
+						</span>
+						<span :class="(isCollapse?'s-nav-item-span':'b-nav-item-span')+' nav-item-span'">动态</span>
+					</router-link>
+				</li>
 			</ul>
 		</nav>
 	</div>
@@ -98,6 +108,7 @@
 		height: 50px;
 		display: block;
 		overflow: hidden;
+		transition: width 0.1s ease-in-out;
 	}
 	.b-nav-item-a {
 		width: 120px;
@@ -138,5 +149,11 @@
 	}
 	a:hover {
 		text-decoration: none;
+	}
+	ul {
+		font-size: 0;
+	}
+	ul li {
+		font-size: 14px;
 	}
 </style>

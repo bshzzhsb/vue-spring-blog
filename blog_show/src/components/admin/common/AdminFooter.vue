@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="footer-container">
 		<div>
 			<p>争渡，争渡，惊起一滩鸥鹭</p>
 		</div>
@@ -24,13 +24,16 @@
 </script>
 
 <style scoped>
-	p {
+	.footer-container {
+		height: 72px;
+	}
+	.footer-container p {
 		font-size: 11px;
 		line-height: 18px;
 		color: rgba(68,68,68,0.9);
 		letter-spacing: 0.5px;
 	}
-	.last-p {
+	.footer-container .last-p {
 		margin-bottom: 5px;
 	}
 </style>

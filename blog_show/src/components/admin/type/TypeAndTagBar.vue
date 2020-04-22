@@ -33,6 +33,7 @@
 		display: inline-block;
 		background-color: #fff;
 		border: 1px solid rgba(0,0,0,0.3);
+		border-radius: 2px;
 	}
 	.type-tag-nav + .type-tag-nav {
 		margin-left: 10px;

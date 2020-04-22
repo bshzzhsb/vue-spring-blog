@@ -15,19 +15,6 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
 }, {});
 
 const store = new VueX.Store({
-    state: {
-        currentUser: window.localStorage.getItem('user') === null ? '' : JSON.parse(window.localStorage.getItem('user'))
-    },
-    mutations: {
-        login(state, user) {
-            state.currentUser = user;
-            window.localStorage.setItem("user", JSON.stringify(user));
-        },
-        logout(state) {
-            state.currentUser = [];
-            window.localStorage.removeItem('user');
-        }
-    },
     modules,
     getters,
 });

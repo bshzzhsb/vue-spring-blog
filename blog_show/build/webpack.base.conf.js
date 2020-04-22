@@ -41,19 +41,6 @@ module.exports = {
                 include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
             },
             {
-                test: /\.css$/,
-                use: [
-                    'vue-style-loader',
-                    {
-                        loader: "css-loader",
-                        options: {
-                            modules: true,
-                            localIdentName: '[local]_[hash:base64:8]'
-                        }
-                    }
-                ]
-            },
-            {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {

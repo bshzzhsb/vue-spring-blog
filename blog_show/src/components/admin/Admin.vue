@@ -4,17 +4,16 @@
 		     class="drawer-bg" @click="handleClickOutside"></div>
 		<admin-side-bar class="sidebar-container" />
 		<el-container class="main-container" ref="container">
-			<el-header>
+			<el-header height="84px">
 				<admin-nav-bar @openSidebar="openSidebar"></admin-nav-bar>
+				<tags-view></tags-view>
 			</el-header>
 			<el-main class="main">
-				<el-row type="flex" justify="center">
-					<el-col :xs="24" :sm="24" :md="20" :lg="18" :xl="16">
-						<transition name="main" mode="out-in">
-							<router-view />
-						</transition>
-					</el-col>
-				</el-row>
+				<transition name="main" mode="out-in">
+					<keep-alive :include="cachedViews">
+						<router-view :key="key" />
+					</keep-alive>
+				</transition>
 			</el-main>
 			<el-footer>
 				<admin-footer></admin-footer>
@@ -25,14 +24,15 @@
 
 <script>
 	import ResizeHandler from "./common/mixin/ResizeHandler";
-	import { mapState } from 'vuex';
 	import AdminSideBar from "./common/AdminSideBar";
 	import AdminFooter from "./common/AdminFooter";
 	import AdminNavBar from "./common/AdminNavBar";
+	import TagsView from "./common/TagsView";
+    import { mapState } from 'vuex';
 
     export default {
         name: "Admin",
-        components: {AdminNavBar, AdminFooter, AdminSideBar},
+        components: {TagsView, AdminNavBar, AdminFooter, AdminSideBar},
 	    mixins: [ResizeHandler],
 	    computed: {
             ...mapState({
@@ -45,6 +45,12 @@
                     openSidebar: this.sidebar.opened,
 	                mobile: this.device === 'mobile',
                 }
+		    },
+		    cachedViews() {
+                return this.$store.state.tagsView.cachedViews;
+		    },
+		    key() {
+                return this.$route.path;
 		    }
 	    },
 	    data() {
@@ -65,13 +71,6 @@
     }
 </script>
 
-<style module>
-	.main-container {
-		min-height: 100%;
-		transition: margin-left 0.3s ease;
-	}
-</style>
-
 <style scoped>
 	.el-aside {
 		position: fixed;
@@ -80,6 +79,7 @@
 		transition: width 0.2s ease;
 	}
 	.main-container {
+		min-height: 100%;
 		margin-left: 120px;
 		transition: margin-left 0.2s ease;
 	}

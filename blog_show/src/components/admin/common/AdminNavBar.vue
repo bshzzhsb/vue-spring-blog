@@ -87,7 +87,7 @@
                 this.axios.get("/admin/logout")
 	                .then(response => {
 	                    if (response.data.status === 200) {
-                            this.$store.commit("logout");
+                            this.$store.dispatch('user/logout');
                             this.$router.replace({ path: '/admin/login' })
 	                    }
 	                })
@@ -104,6 +104,7 @@
 
 <style scoped>
 	.navbar {
+		position: relative;
 		display: block;
 		height: 50px;
 		line-height: 50px;

@@ -13,4 +13,10 @@ public interface TagService {
     List<Tag> listTag();
 
     Tag getTagById(Integer id);
+
+    Tag saveTag(Tag tag);
+
+    Tag updateTag(Tag tag);
+
+    void deleteTag(Integer id);
 }

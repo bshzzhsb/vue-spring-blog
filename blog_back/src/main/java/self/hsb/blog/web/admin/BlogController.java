@@ -17,6 +17,7 @@ import self.hsb.blog.service.TypeService;
 import self.hsb.blog.service.UserService;
 import self.hsb.blog.vo.BlogQuery;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,6 +85,14 @@ public class BlogController {
     public Response getBlog(@PathVariable Integer id) {
         Blog blog = blogService.getBlogById(id);
         return ResponseFactory.buildSuccessResponse(blog);
+    }
+
+    @CrossOrigin
+    @PostMapping("/blog/delete/{id}")
+    @ResponseBody
+    public Response deleteBlog(@PathVariable Integer id) {
+        blogService.deleteBlog(id);
+        return ResponseFactory.buildSuccessResponse(null);
     }
 
 }

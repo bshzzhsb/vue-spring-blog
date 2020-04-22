@@ -57,9 +57,9 @@
 		            .then(response => {
 		                console.log(response);
 		                if (response.data.status === 200) {
-			                this.$store.commit('login', response.data.object);
+			                this.$store.dispatch('user/login', response.data.object);
 			                var path = this.$route.query.redirect;
-			                this.$router.replace({ path: path === undefined ? '/admin/index' : path})
+			                this.$router.replace({ path: path === undefined ? '/admin/home' : path})
 		                }
 		            })
 		            .catch(error => {

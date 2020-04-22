@@ -37,7 +37,7 @@
 							    <use xlink:href="#iconedit"></use>
 							</svg>
 						</span>
-						<span class="delete-icon" @click="deleteBlog">
+						<span class="delete-icon" @click="deleteBlog(item.id)">
 							<svg class="iconfont" style="font-size: 24px" aria-hidden="true">
 								<use xlink:href="#icondelete"></use>
 							</svg>
@@ -58,16 +58,8 @@
                 blogPage: [],
             }
 	    },
-	    created() {
-            this.axios.get("/admin/blog")
-                .then(response => {
-                    if (response.data.status === 200) {
-                        this.blogPage = response.data.object.content;
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                })
+	    mounted() {
+            this.$emit("getBlog", 0);
         },
 	    methods: {
             editBlog(id) {
@@ -79,8 +71,29 @@
 		            }
 	            })
             },
-		    deleteBlog() {
-
+		    deleteBlog(id) {
+                this.$confirm('此操作将永久删除该博客，是否继续', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.axios.post("/admin/blog/delete/"+id, {})
+                        .then(response => {
+                            if (response.data.status === 200) {
+                                this.getBlog();
+                                this.$message.success("删除成功");
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            this.$message.error("该分类被博客关联，无法删除");
+                        })
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
 		    }
 	    }
     }

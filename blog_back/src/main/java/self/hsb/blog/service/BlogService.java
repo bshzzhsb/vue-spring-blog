@@ -22,4 +22,6 @@ public interface BlogService {
     Blog updateBlog(Blog blog);
 
     Blog getBlogById(Integer id);
+
+    void deleteBlog(Integer id);
 }

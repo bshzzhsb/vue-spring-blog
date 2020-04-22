@@ -1,64 +1,68 @@
 <template>
 	<div>
-		<el-form ref="form" :model="blog" :rules="rules"
-		         :hide-required-asterisk="true">
-			<el-form-item prop="flag" class="form-flag">
-				<el-select v-model="blog.flag" placeholder="博客类型" value="">
-					<el-option v-for="item in flagOptions" :key="item.value"
-					           :label="item.label" :value="item.value">
-					</el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item prop="title" class="form-title">
-				<el-input v-model="blog.title" placeholder="标题"></el-input>
-			</el-form-item>
-			<el-form-item prop="contentMd">
-				<mavon-editor ref="mavonEditor" v-model="blog.contentMd">
-				</mavon-editor>
-			</el-form-item>
-			<el-form-item prop="type" class="form-type" label="分类" label-width="40px">
-				<el-select v-model="blog.type" value-key="id" placeholder="分类" value="">
-					<el-option v-for="item in typeList" :key="item.id"
-					           :label="item.name" :value="item"></el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item prop="tags" class="form-tag">
-				<el-select v-model="blog.tags" value-key="id" multiple placeholder="标签" value="">
-					<el-option v-for="item in tagList" :key="item.id"
-					           :label="item.name" :value="item">
-					</el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item prop="abs">
-				<el-input type="textarea" :rows="2"
-				          placeholder="摘要" v-model="blog.abs">
-				</el-input>
-			</el-form-item>
-			<el-form-item class="form-picture">
-				<el-input v-model="blog.picture" placeholder="图片URL">
-					<el-button icon="el-icon-upload" slot="prepend"
-					           @click="showDrawer"></el-button>
-					<el-popover v-if="blog.picture" placement="top-start"
-					            slot="append" width="200"
-					            trigger="hover">
-						<el-image :src="blog.picture" :fit="'contain'"
-						          style="width: 200px;"></el-image>
-						<el-button icon="el-icon-picture-outline" slot="reference"></el-button>
-					</el-popover>
-				</el-input>
-			</el-form-item>
-			<el-form-item>
-				<el-checkbox v-model="blog.commentable">评论</el-checkbox>
-				<el-checkbox v-model="blog.shareStatement">转载声明</el-checkbox>
-				<el-checkbox v-model="blog.appreciation">打赏</el-checkbox>
-				<el-checkbox v-model="blog.recommend">推荐</el-checkbox>
-			</el-form-item>
-			<el-form-item>
-				<el-button type="primary" @click="onSave">保存</el-button>
-				<el-button type="primary" @click="onSubmit">发布</el-button>
-			</el-form-item>
-		</el-form>
-		<img-upload ref="imgUpload"></img-upload>
+		<el-row type="flex" justify="center">
+			<el-col :xs="24" :sm="24" :md="20" :lg="18" :xl="16">
+				<el-form ref="form" :model="blog" :rules="rules"
+				         :hide-required-asterisk="true">
+					<el-form-item prop="flag" class="form-flag">
+						<el-select v-model="blog.flag" placeholder="博客类型" value="">
+							<el-option v-for="item in flagOptions" :key="item.value"
+							           :label="item.label" :value="item.value">
+							</el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item prop="title" class="form-title">
+						<el-input v-model="blog.title" placeholder="标题"></el-input>
+					</el-form-item>
+					<el-form-item prop="contentMd">
+						<mavon-editor ref="mavonEditor" v-model="blog.contentMd">
+						</mavon-editor>
+					</el-form-item>
+					<el-form-item prop="type" class="form-type" label="分类" label-width="40px">
+						<el-select v-model="blog.type" value-key="id" placeholder="分类" value="">
+							<el-option v-for="item in typeList" :key="item.id"
+							           :label="item.name" :value="item"></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item prop="tags" class="form-tag">
+						<el-select v-model="blog.tags" value-key="id" multiple placeholder="标签" value="">
+							<el-option v-for="item in tagList" :key="item.id"
+							           :label="item.name" :value="item">
+							</el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item prop="abs">
+						<el-input type="textarea" :rows="2"
+						          placeholder="摘要" v-model="blog.abs">
+						</el-input>
+					</el-form-item>
+					<el-form-item class="form-picture">
+						<el-input v-model="blog.picture" placeholder="图片URL">
+							<el-button icon="el-icon-upload" slot="prepend"
+							           @click="showDrawer"></el-button>
+							<el-popover v-if="blog.picture" placement="top-start"
+							            slot="append" width="200"
+							            trigger="hover">
+								<el-image :src="blog.picture" :fit="'contain'"
+								          style="width: 200px;"></el-image>
+								<el-button icon="el-icon-picture-outline" slot="reference"></el-button>
+							</el-popover>
+						</el-input>
+					</el-form-item>
+					<el-form-item>
+						<el-checkbox v-model="blog.commentable">评论</el-checkbox>
+						<el-checkbox v-model="blog.shareStatement">转载声明</el-checkbox>
+						<el-checkbox v-model="blog.appreciation">打赏</el-checkbox>
+						<el-checkbox v-model="blog.recommend">推荐</el-checkbox>
+					</el-form-item>
+					<el-form-item>
+						<el-button type="primary" @click="onSave">保存</el-button>
+						<el-button type="primary" @click="onSubmit">发布</el-button>
+					</el-form-item>
+				</el-form>
+				<img-upload ref="imgUpload"></img-upload>
+			</el-col>
+		</el-row>
 	</div>
 </template>
 

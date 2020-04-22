@@ -47,9 +47,6 @@ public class Blog {
             inverseJoinColumns = {@JoinColumn(name = "tag_id")})
     private List<Tag> tags = new ArrayList<>();
 
-    @Transient
-    private String tagIds;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -146,14 +143,6 @@ public class Blog {
         this.tags = tags;
     }
 
-    public String getTagIds() {
-        return tagIds;
-    }
-
-    public void setTagIds(String tagIds) {
-        this.tagIds = tagIds;
-    }
-
     public User getUser() {
         return user;
     }
@@ -238,7 +227,6 @@ public class Blog {
                 ", views=" + views +
                 ", type=" + type +
                 ", tags=" + tags +
-                ", tagIds='" + tagIds + '\'' +
                 ", user=" + user +
                 ", flag='" + flag + '\'' +
                 ", commentable=" + commentable +

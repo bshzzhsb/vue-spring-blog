@@ -2,6 +2,7 @@ package self.hsb.blog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import self.hsb.blog.dao.TypeDao;
 import self.hsb.blog.po.Type;
 
@@ -27,6 +28,7 @@ public class TypeServiceImpl implements TypeService {
         return typeDao.getOne(id);
     }
 
+    @Transactional
     @Override
     public Type saveType(Type type) {
         if (typeDao.findByName(type.getName()) == null) {
@@ -37,6 +39,7 @@ public class TypeServiceImpl implements TypeService {
 
     }
 
+    @Transactional
     @Override
     public Type updateType(Type type) {
         Type t = typeDao.getOne(type.getId());

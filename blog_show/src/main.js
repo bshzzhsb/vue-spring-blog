@@ -12,6 +12,7 @@ import VueProgressBar from 'vue-progressbar';
 import * as filters from './filter'
 import mavonEditor from "mavon-editor";
 import 'mavon-editor/dist/css/index.css'
+import './permission'
 
 import './assets/css/blog.css'
 import './assets/js/iconfont'
@@ -39,21 +40,6 @@ Vue.use(VueProgressBar, {
 });
 
 Vue.use(mavonEditor);
-
-router.beforeEach((to, from, next) => {
-    if (to.meta.requireAuth) {
-        if (store.state.currentUser !== null && store.state.currentUser) {
-            next();
-        } else {
-            next({
-                path: '/admin/login',
-                query: {redirect: to.fullPath},
-            })
-        }
-    } else {
-        next();
-    }
-});
 
 Object.keys(filters).forEach(key => {
     Vue.filter(key, filters[key])
