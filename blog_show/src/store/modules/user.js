@@ -32,7 +32,8 @@ const actions = {
         commit('SET_TOKEN', '');
         commit('SET_ROLES', []);
         removeToken();
-        dispatch('tagsView/delAllViews', null, { root: true });
+        // dispatch('tagsView/delAllViews', null, { root: true });
+        dispatch('tagsView/initViews', null, {root: true});
     },
     resetToken({ commit }) {
         commit('SET_TOKEN', '');

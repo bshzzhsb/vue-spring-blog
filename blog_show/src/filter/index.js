@@ -1,4 +1,4 @@
-export function parseTime(time, cFormat) {
+export function parseTime(time, cFormat, pad=true) {
     if (arguments.length === 0) {
         return null;
     }
@@ -31,12 +31,16 @@ export function parseTime(time, cFormat) {
         if (key === 'a') {
             return ['日', '一', '二', '三', '四', '五', '六'][value]
         }
-        return value.toString().padStart(2, '0')
+        if (pad) {
+            return value.toString().padStart(2, '0');
+        } else {
+            return value.toString();
+        }
     });
     return time_str
 }
 
-export function formatTime(time, option) {
+export function formatTime(time, option, pad=true) {
     const d = new Date(time);
     const now = Date.now();
 
@@ -51,7 +55,7 @@ export function formatTime(time, option) {
         return '一天前'
     }
     if (option) {
-        return parseTime(time, option);
+        return parseTime(time, option, pad);
     } else {
         return (
             d.getFullYear() + '年' + (d.getMonth()+1) + '月' + d.getDate() + '日' + d.getHours() + '时' + d.getMinutes() + '分'

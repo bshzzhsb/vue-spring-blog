@@ -62,10 +62,24 @@
 	            }
             }
 	    },
+	    created() {
+            if (this.$route.query.moodId) {
+                this.loadMood(this.$route.query.moodId);
+            }
+	    },
 	    methods: {
             showDrawer() {
                 this.$refs.imgUpload.drawer=true;
             },
+		    loadMood(id) {
+                this.axios.get("/admin/mood/"+id)
+	                .then(response => {
+	                    this.mood = response.data.object;
+	                })
+	                .catch(error => {
+                        console.log(error);
+	                })
+		    },
             onSubmit() {
                 this.mood.published = true;
 	            this.axios.post("/admin/mood", this.mood)
@@ -81,7 +95,7 @@
             },
 		    onSave() {
 
-		    }
+		    },
 	    }
     }
 </script>

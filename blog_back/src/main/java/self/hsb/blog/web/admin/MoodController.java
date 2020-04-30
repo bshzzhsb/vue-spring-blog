@@ -1,5 +1,6 @@
 package self.hsb.blog.web.admin;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,7 @@ import self.hsb.blog.response.Response;
 import self.hsb.blog.response.ResponseFactory;
 import self.hsb.blog.service.MoodService;
 import self.hsb.blog.service.UserService;
+import self.hsb.blog.util.MarkdownToHtml;
 
 /**
  * @author SipooHe
@@ -46,7 +48,9 @@ public class MoodController {
     @PostMapping("/mood")
     @ResponseBody
     public Response saveMood(@RequestBody Mood mood) {
-        mood.setUser(userService.getUserByUsername("hsblock"));
+        mood.setContent(MarkdownToHtml.markdownToHtml(mood.getContent()));
+        String username = SecurityUtils.getSubject().getPrincipal().toString();
+        mood.setUser(userService.getUserByUsername(username));
         Mood m;
         if (mood.getId() == null) {
             m = moodService.saveMood(mood);

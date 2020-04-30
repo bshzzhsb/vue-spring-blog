@@ -75,7 +75,7 @@ public class UserController {
     @CrossOrigin
     @GetMapping("/logout")
     @ResponseBody
-    public Response logout(HttpSession session) {
+    public Response logout() {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
         return ResponseFactory.buildSuccessResponse(null);

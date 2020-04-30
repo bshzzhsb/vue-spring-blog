@@ -1,0 +1,142 @@
+create database hsblog default charset utf8 collate utf8_general_ci;
+
+use hsblog;
+create table `user`(
+    `id` int(16) not null auto_increment,
+    `username` varchar(255) default null,
+    `password` varchar(255) default null,
+    `salt` varchar(255) default null,
+    `profile` varchar(255) default null,
+    `nickname` varchar(255) default null,
+    `email` varchar(255) default null,
+    `create_time` datetime default null,
+    primary key (`id`)
+)engine = InnoDB auto_increment=1 default charset = utf8;
+
+create table `blog`(
+    `id` int(16) not null auto_increment,
+    `title` varchar(255) default null,
+    `abs` varchar(255) default null,
+    `content_html` longtext default null,
+    `content_md` longtext default null,
+    `picture` varchar(255) default null,
+    `views` int(16) default 0,
+    `type_id` int(16) default null,
+    `user_id` int(16) default null,
+    `flag` varchar(255) default null,
+    `commentable` bit default null,
+    `share_statement` bit default null,
+    `appreciation` bit default null,
+    `published` bit default null,
+    `recommend` bit default null,
+    `create_time` datetime default null,
+    `update_time` datetime default null,
+    primary key (`id`),
+    constraint `fk_blog_user_on_user_id` foreign key (`user_id`) references `user` (`id`) on delete set null on update cascade
+)engine = InnoDB auto_increment = 1 default charset = utf8;
+
+drop table if exists `type`;
+create table `type`(
+    `id` int(16) not null auto_increment,
+    `name` varchar(255) default null,
+    primary key (`id`)
+)engine = InnoDB auto_increment = 1 default charset = utf8;
+
+create table `tag`(
+    `id` int(16) not null auto_increment,
+    `name` varchar(255) default null,
+    primary key (`id`)
+)engine = InnoDB auto_increment = 1 default charset = utf8;
+
+create table `blog_tags` (
+    `blog_id` int(16) not null,
+    `tag_id` int(16) not null,
+    constraint `fk_blog_tags_blog_on_blog_id` foreign key (`blog_id`) references `blog` (`id`) on delete cascade on update cascade ,
+    constraint `fk_blog_tags_tag_on_tag_id` foreign key (`tag_id`) references `tag` (`id`) on delete cascade on update cascade
+)engine = InnoDB default charset = utf8;
+
+drop table if exists `blog_comments`;
+create table `blog_comments`(
+    `id` int(16) not null auto_increment,
+    `content` varchar(255) default null,
+    `nickname` varchar(255) default null,
+    `avatar` varchar(255) default null,
+    `email` varchar(255) default null,
+    `web` varchar(255) default null,
+    `blog_id` int(16) default null,
+    `parent_comment_id` int(16) default null,
+    `admin_comment` bit not null,
+    `create_time` datetime default null,
+    primary key (`id`),
+    constraint `fk_blog_comments_blog_on_blog_id` foreign key (`blog_id`) references `blog` (`id`) on delete cascade on update cascade,
+    constraint `fk_blog_comments_blog_comments_on_parent_comment_id` foreign key (`parent_comment_id`) references `blog_comments` (`id`) on delete set null on update cascade
+)engine = InnoDB default charset = utf8;
+
+create table `mood`(
+    `id` int(16) not null auto_increment,
+    `content` longtext default null,
+    `commentable` bit default null,
+    `published` bit default null,
+    `user_id` int(16) default null,
+    `create_time` datetime default null,
+    `update_time` datetime default null,
+    `likes` int(16) default 0,
+    primary key (`id`),
+    constraint `fk_mood_user_on_user_id` foreign key (`user_id`) references `user` (`id`) on delete set null on update cascade
+)engine = InnoDB auto_increment = 1 default charset = utf8;
+
+create table `mood_comment`(
+    `id` int(16) not null auto_increment,
+    `content` varchar(255) default null,
+    `nickname` varchar(255) default null,
+    `avatar` varchar(255) default null,
+    `email` varchar(255) default null,
+    `web` varchar(255) default null,
+    `mood_id` int(16) not null,
+    `admin_mood_comment` bit default null,
+    `parent_mood_comment_id` int(16) default null,
+    `create_time` datetime default null,
+    primary key (`id`),
+    constraint `fk_mood_comment_mood_on_mood_id` foreign key (`mood_id`) references `mood` (`id`) on delete cascade on update cascade,
+    constraint `fk_mood_comment_mood_comment_on_parent_mood_comment_id` foreign key (`parent_mood_comment_id`) references `mood_comment` (`id`) on delete cascade on update cascade
+)engine = InnoDB auto_increment = 1 default charset = utf8;
+
+create table `todo`(
+    `id` int(16) not null auto_increment,
+    `content` varchar(255) default null,
+    `create_time` datetime default null,
+    `update_time` datetime default null,
+    `finish_time` datetime default null,
+    `finished` bit default false,
+    `user_id` int(16) default null,
+    primary key (`id`),
+    constraint `fk_todo_user_on_user_id` foreign key (`user_id`) references user (`id`) on delete set null on update cascade
+)engine = InnoDB, auto_increment = 1, default charset = utf8;
+
+create table `message`(
+    `id` int(16) not null auto_increment,
+    `content` varchar(255) default null,
+    `avatar` varchar(255) default null,
+    `nickname` varchar(255) default null,
+    `email` varchar(255) default null,
+    `web` varchar(255) default null,
+    `admin_message` bit default null,
+    `checked` bit default null,
+    `create_time` datetime default null,
+    `parent_message_id` int(16) default null,
+    primary key (`id`),
+    constraint `fk_message_message_on_parent_message_id` foreign key (`parent_message_id`) references message (`id`) on delete cascade on update cascade
+)engine = InnoDB auto_increment = 1 default charset = utf8;
+
+
+
+
+
+
+
+
+
+
+
+
+

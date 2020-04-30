@@ -6,11 +6,11 @@
 		<el-upload ref="upload"
 		           class="upload"
 		           list-type="picture"
-		           action="http://127.0.0.1:8088/hsblog/admin/upload"
 		           :on-success="handleSuccess"
 		           :auto-upload="false"
+		           action="action"
 		           :show-file-list="true"
-		           :mulitple="false" :limit="1">
+		           :mulitple="false" :limit="1" :http-request="imageUpload">
 			<el-button class="plus-btn" icon="el-icon-plus" circle></el-button>
 		</el-upload>
 		<el-button class="upload-btn" size="small" type="success" @click="submitUpload">
@@ -43,8 +43,8 @@
 	    },
 	    methods: {
             handleSuccess(response) {
-	            if (response.status === 200) {
-	                this.imageUrl = response.object;
+	            if (response.data.status === 200) {
+	                this.imageUrl = response.data.object;
                     this.$message({
 	                    message: '上传成功',
 	                    type: 'success',
@@ -77,7 +77,19 @@
             clearUpload() {
                 this.imageUrl = '';
                 this.$refs.upload.clearFiles();
-            }
+            },
+            imageUpload(param) {
+	            var fileObj = param.file;
+	            var form = new FormData();
+	            form.append("file", fileObj);
+	            this.axios.post("/admin/upload", form)
+		            .then(response => {
+		                this.handleSuccess(response);
+		            })
+		            .catch(error => {
+                        console.log(error)
+		            })
+            },
 	    }
     }
 </script>

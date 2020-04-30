@@ -9,17 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import self.hsb.blog.dao.BlogDao;
 import self.hsb.blog.po.Blog;
+import self.hsb.blog.po.Tag;
 import self.hsb.blog.po.Type;
 import self.hsb.blog.util.MyBeanUtils;
 import self.hsb.blog.vo.BlogQuery;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import javax.persistence.criteria.*;
+import java.util.*;
 
 /**
  * @author SipooHe
@@ -62,6 +58,17 @@ public class BlogServiceImpl implements BlogService {
         return blogDao.findByQuery(query, pageable);
     }
 
+    @Override
+    public Page<Blog> listBlog(Integer tagId, Pageable pageable) {
+        return blogDao.findAll(new Specification<Blog>() {
+            @Override
+            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                Join<Blog, Tag> join = root.join("tags");
+                return criteriaBuilder.equal(join.get("id"), tagId);
+            }
+        }, pageable);
+    }
+
     @Transactional
     @Override
     public Blog saveBlog(Blog blog) {
@@ -86,8 +93,28 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public void updateView(Integer id) {
+        blogDao.updateView(id);
+    }
+
+    @Override
     public void deleteBlog(Integer id) {
         blogDao.deleteById(id);
+    }
+
+    @Override
+    public Long countBlog() {
+        return blogDao.count();
+    }
+
+    @Override
+    public Map<String, List<Blog>> archiveAll() {
+        List<String> years = blogDao.findGroupYear();
+        Map<String, List<Blog>> map = new LinkedHashMap<>();
+        for (String year : years) {
+            map.put(year, blogDao.findByYear(year));
+        }
+        return map;
     }
 
 }

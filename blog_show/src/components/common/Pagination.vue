@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="pagination-container">
 		<ul class="pagination" v-if="totalPages>1">
 			<li class="page-prev page-number" @click="selectPage(currentPage-1)">
 				<svg class="iconfont" style="font-size: 1.2em" aria-hidden="true">
@@ -79,6 +79,9 @@
 </script>
 
 <style scoped>
+	.pagination-container {
+		margin-bottom: 1em;
+	}
 	.pagination {
 		font-size: 0;
 		display: inline-flex;

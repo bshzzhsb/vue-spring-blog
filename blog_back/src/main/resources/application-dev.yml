@@ -9,7 +9,7 @@ spring:
       ddl-auto: none
     show-sql: true
 server:
-  port: 8088
+  port: 8090
 logging:
   level:
     root: info
@@ -19,4 +19,4 @@ logging:
 
 
 image.path: F:/images/
-file.url: http://127.0.0.1:8088/hsblog/images/upload/
+file.url: http://127.0.0.1:8090/hsblog/images/upload/

@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
         '/hsblog': {
-            target: 'http://127.0.0.1:8088/hsblog',
+            target: 'http://127.0.0.1:8090/hsblog',
             changeOrigin: true,
             pathRewrite: {
                 '^/hsblog': '',
@@ -51,7 +51,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps

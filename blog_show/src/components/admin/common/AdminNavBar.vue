@@ -33,7 +33,7 @@
 
 <script>
     import {compile} from 'path-to-regexp'
-    import Hamburger from "./Hamburger";
+    import Hamburger from "../../common/Hamburger";
 
     export default {
         name: "AdminNavBar",
@@ -59,7 +59,7 @@
                 let matched = this.$route.matched.filter(item => item.meta && item.meta.title);
                 const first = matched[0];
                 if (!this.isAdminHome(first)) {
-                    matched = [{path: '/admin/home', meta: {title: '首页',}}].concat(matched);
+                    matched = [{path: '/admin/home', meta: {title: '主页',}}].concat(matched);
                 }
                 this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false);
             },

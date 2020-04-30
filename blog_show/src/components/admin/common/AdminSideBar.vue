@@ -5,44 +5,14 @@
 				<img class="profile" src="../../../assets/images/doraemon.jpg" @click="toggleCollapse" alt="">
 			</div>
 			<ul>
-				<li class="nav-item">
-					<router-link to="/admin/home" :class="(isCollapse?'s-nav-item-a':'b-nav-item-a')+' nav-item-a'">
+				<li v-for="(item, index) in adminRoutes" class="nav-item">
+					<router-link :to="item.path" :class="(isCollapse?'s-nav-item-a':'b-nav-item-a')+' nav-item-a'">
 						<span :class="(isCollapse?'s-nav-item-span':'b-nav-item-span')+' nav-item-span'">
 							<svg class="iconfont" style="font-size: 1.2rem" aria-hidden="true">
-							    <use xlink:href="#iconhome1"></use>
+							    <use :xlink:href="item.icon"></use>
 							</svg>
 						</span>
-						<span :class="(isCollapse?'s-nav-item-span':'b-nav-item-span')+' nav-item-span'">主页</span>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/admin/blog" :class="(isCollapse?'s-nav-item-a':'b-nav-item-a')+' nav-item-a'">
-						<span :class="(isCollapse?'s-nav-item-span':'b-nav-item-span')+' nav-item-span'">
-							<svg class="iconfont" style="font-size: 1.2rem" aria-hidden="true">
-							    <use xlink:href="#iconego-blog"></use>
-							</svg>
-						</span>
-						<span :class="(isCollapse?'s-nav-item-span':'b-nav-item-span')+' nav-item-span'">博客</span>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/admin/typeandtag" :class="(isCollapse?'s-nav-item-a':'b-nav-item-a')+' nav-item-a'">
-						<span :class="(isCollapse?'s-nav-item-span':'b-nav-item-span')+' nav-item-span'">
-							<svg class="iconfont" style="font-size: 1.2rem" aria-hidden="true">
-							    <use xlink:href="#iconfenlei"></use>
-							</svg>
-						</span>
-						<span :class="(isCollapse?'s-nav-item-span':'b-nav-item-span')+' nav-item-span'">分类</span>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/admin/moodmanager" :class="(isCollapse?'s-nav-item-a':'b-nav-item-a')+' nav-item-a'">
-						<span :class="(isCollapse?'s-nav-item-span':'b-nav-item-span')+' nav-item-span'">
-							<svg class="iconfont" style="font-size: 1.2rem" aria-hidden="true">
-							    <use xlink:href="#iconxingxi"></use>
-							</svg>
-						</span>
-						<span :class="(isCollapse?'s-nav-item-span':'b-nav-item-span')+' nav-item-span'">动态</span>
+						<span :class="(isCollapse?'s-nav-item-span':'b-nav-item-span')+' nav-item-span'">{{ item.title }}</span>
 					</router-link>
 				</li>
 			</ul>
@@ -67,6 +37,13 @@
 	    data() {
             return {
 	            activeMenu: 'home',
+	            adminRoutes: [
+		            { path: '/admin/home', title: '主页', icon: '#iconhome1' },
+                    { path: '/admin/blog', title: '博客', icon: '#iconego-blog' },
+                    { path: '/admin/type', title: '分类', icon: '#iconfenlei' },
+                    { path: '/admin/message', title: '留言', icon: '#iconduzheliuyan' },
+                    { path: '/admin/mood', title: '动态', icon: '#iconxingxi' },
+	            ]
             };
 	    },
         watch: {
@@ -74,9 +51,6 @@
                 this.activeMenu = to.path.split('/')[2];
             }
         },
-	    mounted() {
-
-	    },
 	    methods: {
             toggleCollapse() {
                 this.$store.dispatch('app/toggleSideBar');

@@ -1,5 +1,6 @@
 package self.hsb.blog.web.admin;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +18,6 @@ import self.hsb.blog.service.TypeService;
 import self.hsb.blog.service.UserService;
 import self.hsb.blog.vo.BlogQuery;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +60,8 @@ public class BlogController {
     @PostMapping("/blog")
     @ResponseBody
     public Response saveBlog(@RequestBody Blog blog) {
-        blog.setUser(userService.getUserByUsername("hsblock"));
+        String username = SecurityUtils.getSubject().getPrincipal().toString();
+        blog.setUser(userService.getUserByUsername(username));
         blog.setType(typeService.getTypeById(blog.getType().getId()));
         List<Tag> tags = new ArrayList<>();
         for (Tag tag : blog.getTags()) {

@@ -16,7 +16,7 @@
 				</transition>
 			</el-main>
 			<el-footer>
-				<admin-footer></admin-footer>
+				<footer></footer>
 			</el-footer>
 		</el-container>
 	</div>
@@ -25,14 +25,14 @@
 <script>
 	import ResizeHandler from "./common/mixin/ResizeHandler";
 	import AdminSideBar from "./common/AdminSideBar";
-	import AdminFooter from "./common/AdminFooter";
+	import Footer from "../common/Footer";
 	import AdminNavBar from "./common/AdminNavBar";
-	import TagsView from "./common/TagsView";
+	import TagsView from "../common/TagsView";
     import { mapState } from 'vuex';
 
     export default {
         name: "Admin",
-        components: {TagsView, AdminNavBar, AdminFooter, AdminSideBar},
+        components: {TagsView, AdminNavBar, Footer, AdminSideBar},
 	    mixins: [ResizeHandler],
 	    computed: {
             ...mapState({
@@ -56,9 +56,6 @@
 	    data() {
             return {
             }
-	    },
-	    beforeMount() {
-
 	    },
 	    methods: {
             openSidebar() {

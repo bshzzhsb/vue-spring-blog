@@ -14,8 +14,9 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr v-for="(item,index) in blogPage">
-				<th scope="row">{{ index+1 }}</th>
+			<div v-if="loading" class="loading"></div>
+			<tr v-for="(item,index) in blogPage" class="blog-tr">
+				<th scope="row">{{ pageNum*pageSize+index+1 }}</th>
 				<td>{{ item.title }}</td>
 				<td>{{ item.type.name }}</td>
 				<td>
@@ -56,6 +57,9 @@
 	    data() {
             return {
                 blogPage: [],
+                pageNum: 0,
+	            pageSize: 3,
+	            loading: true,
             }
 	    },
 	    mounted() {
@@ -64,8 +68,7 @@
 	    methods: {
             editBlog(id) {
 	            this.$router.push({
-		            path: '/blogging',
-		            name: 'Blogging',
+		            path: '/admin/blogging',
 		            query: {
 		                blogId: id,
 		            }
@@ -80,13 +83,12 @@
                     this.axios.post("/admin/blog/delete/"+id, {})
                         .then(response => {
                             if (response.data.status === 200) {
-                                this.getBlog();
+                                this.$emit("getBlog", 0);
                                 this.$message.success("删除成功");
                             }
                         })
                         .catch(error => {
                             console.log(error);
-                            this.$message.error("该分类被博客关联，无法删除");
                         })
                 }).catch(() => {
                     this.$message({
@@ -105,10 +107,11 @@
 		margin-bottom: 1rem;
 		color: #212529;
 		overflow-x: scroll;
+		position: relative;
 	}
 	.table th,
 	.table td {
-		padding: 0.75rem;
+		padding: 0.5rem;
 		vertical-align: middle;
 		min-width: 40px;
 	}
@@ -131,6 +134,9 @@
 	}
 	.table thead tr:first-child th:last-child {
 		border-radius: 0 4px 0 0;
+	}
+	.blog-tr {
+		box-shadow: 0 -1px 0 0 rgba(0,0,0,.1) inset;
 	}
 	.el-icon-check {
 		font-size: 16px;

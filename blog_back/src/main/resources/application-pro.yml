@@ -7,3 +7,6 @@ logging:
     self.hsb: info
   file:
     name: log/blog-pro.log
+
+image.path: /export/data/images/
+file.url: http://www.bshz.xyz:8090/hsblog/images/upload/

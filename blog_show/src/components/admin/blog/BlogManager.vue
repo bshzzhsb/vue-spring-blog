@@ -17,7 +17,7 @@
 	import BlogTable from "./BlogTable";
 	import SearchBar from "./SearchBar";
 	import NewBlog from "./NewBlog";
-	import Pagination from "./Pagination";
+	import Pagination from "../../common/Pagination";
 
     export default {
         name: "BlogManager",
@@ -31,6 +31,7 @@
 	    },
 	    methods: {
 		    blogQuery(page=0) {
+                this.$refs.blogTable.loading = true;
 		        var blogQuery = this.$refs.searchbar.blogQuery;
 		        var query = {
                     title: blogQuery.title,
@@ -41,9 +42,14 @@
 			        .then(response => {
 			            if (response.data.status === 200) {
 			                let object = response.data.object;
+				            this.$refs.blogTable.pageNum = object.number;
+                            this.$refs.blogTable.pageSize = object.size;
 			                this.$refs.blogTable.blogPage = object.content;
 			                this.$refs.pagination.totalPages = object.totalPages;
 			                this.$refs.pagination.currentPage = object.number+1;
+                            this.$nextTick(() => {
+                                this.$refs.blogTable.loading = false;
+                            })
 			            }
 			        })
 			        .catch(error => {

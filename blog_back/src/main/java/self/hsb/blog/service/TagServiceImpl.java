@@ -1,6 +1,9 @@
 package self.hsb.blog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import self.hsb.blog.dao.TagDao;
@@ -53,5 +56,12 @@ public class TagServiceImpl implements TagService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public List<Tag> listTagTop() {
+        Sort sort = Sort.by(Sort.Direction.DESC, "blogs.size");
+        Pageable pageable = PageRequest.of(0, 1000, sort);
+        return tagDao.findTop(pageable);
     }
 }

@@ -1,0 +1,4 @@
+2020-04-29 22:34:40.445  INFO 32656 --- [main] self.hsb.blog.BlogApplicationTests       : Starting BlogApplicationTests on DESKTOP-7SFI4VI with PID 32656 (started by SipooHe in F:\IDEA\Blog\blog_back)
+2020-04-29 22:34:40.448  INFO 32656 --- [main] self.hsb.blog.BlogApplicationTests       : The following profiles are active: pro
+2020-04-29 22:34:53.642  WARN 32656 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-04-29 22:34:55.877  INFO 32656 --- [main] self.hsb.blog.BlogApplicationTests       : Started BlogApplicationTests in 16.499 seconds (JVM running for 20.673)

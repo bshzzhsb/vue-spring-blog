@@ -10,13 +10,16 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "animate.css": "^3.7.2",
     "axios": "^0.19.2",
     "clipboard": "^2.0.6",
     "element-ui": "^2.13.0",
+    "highlight.js": "^10.0.0",
     "js-cookie": "^2.2.1",
     "mavon-editor": "^2.8.3",
     "path": "^0.12.7",
     "path-to-regexp": "^6.1.0",
+    "tocbot": "^4.11.1",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.5",
     "vue-progressbar": "^0.7.5",

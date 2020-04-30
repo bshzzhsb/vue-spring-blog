@@ -13,6 +13,17 @@ import Redirect from "../components/common/Redirect";
 import MoodManager from "../components/admin/mood/MoodManager";
 import Mood from "../components/admin/mood/Mood";
 import Mooding from "../components/admin/mood/Mooding";
+import MessageManager from "../components/admin/message/MessageManager";
+import Layout from "../components/layout/Layout";
+import Index from "../components/layout/index/Index";
+import Page404 from '../components/error/404';
+import Blog from "../components/layout/blog/Blog";
+import TypeAndTagShow from "../components/layout/type/TypeAndTagShow";
+import TypeShow from "../components/layout/type/TypeShow";
+import TagShow from "../components/layout/type/TagShow";
+import Message from "../components/layout/message/Message";
+import MoodShow from "../components/layout/mood/MoodShow";
+import ArchiveShow from "../components/layout/archive/ArchiveShow";
 
 Vue.use(Router);
 
@@ -28,7 +39,85 @@ export const constantRoutes = [
     {
         path: '/redirect/:path(.*)',
         component: Redirect,
-    }
+    },
+    {
+        path: '/404',
+        name: '404',
+        component: Page404,
+    },
+    {
+        path: '/',
+        name: 'Layout',
+        redirect: '/index',
+        component: Layout,
+        children: [
+            {
+                path: '/index',
+                name: 'Index',
+                component: Index,
+                meta: {
+                    title: '首页',
+                    affix: true,
+                },
+            },
+            {
+                path: '/blog/:id',
+                name: 'Blog',
+                component: Blog,
+                meta: {
+                    title: '博客',
+                }
+            },
+            {
+                path: 'typeandtag',
+                name: 'TypeAndTagShow',
+                component: TypeAndTagShow,
+                redirect: '/type',
+                children: [
+                    {
+                        path: '/type',
+                        name: 'TypeShow',
+                        component: TypeShow,
+                        meta: {
+                            title: '分类'
+                        }
+                    },
+                    {
+                        path: '/tag',
+                        name: 'TagShow',
+                        component: TagShow,
+                        meta: {
+                            title: '标签'
+                        }
+                    },
+                ]
+            },
+            {
+                path: '/message',
+                name: 'Message',
+                component: Message,
+                meta: {
+                    title: '留言'
+                }
+            },
+            {
+                path: '/mood',
+                name: 'MoodShow',
+                component: MoodShow,
+                meta: {
+                    title: '动态'
+                }
+            },
+            {
+                path: '/archive',
+                name: 'ArchiveShow',
+                component: ArchiveShow,
+                meta: {
+                    title: '归档',
+                }
+            }
+        ]
+    },
 ];
 
 export const asyncRoutes = [
@@ -52,7 +141,7 @@ export const asyncRoutes = [
                 component: AdminHome,
                 meta: {
                     requireAuth: true,
-                    title: '首页',
+                    title: '主页',
                     affix: true,
                 },
             },
@@ -123,11 +212,28 @@ export const asyncRoutes = [
                             requireAuth: true,
                             title: '写动态',
                         }
-                    }
+                    },
                 ]
+            },
+            {
+                path: 'message',
+                name: 'MessageManager',
+                component: MessageManager,
+                meta: {
+                    requireAuth: true,
+                    title: '留言'
+                }
             }
         ]
     },
+];
+
+export const errorRoutes = [
+    {
+        path: '*',
+        redirect: '/404',
+        hidden: true,
+    }
 ];
 
 const createRouter = () => new Router({

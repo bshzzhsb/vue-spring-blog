@@ -19,4 +19,6 @@ public interface TypeService {
     Type updateType(Type type);
 
     void deleteType(Integer id);
+
+    List<Type> listTypeTop();
 }

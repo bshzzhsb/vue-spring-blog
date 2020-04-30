@@ -4,6 +4,10 @@ const state = {
 };
 
 const mutations = {
+    INIT_VIEWS: state => {
+        state.visitedViews = [];
+        state.cachedViews = [];
+    },
     ADD_VISITED_VIEW: (state, view) => {
         if (state.visitedViews.some(v => v.path === view.path)) {
             return;
@@ -67,6 +71,9 @@ const mutations = {
 };
 
 const actions = {
+    initViews({ commit }) {
+        commit('INIT_VIEWS');
+    },
     addView({ dispatch }, view) {
         dispatch('addVisitedView', view);
     },
