@@ -21,10 +21,14 @@ public class URLPathMatchingFilter extends PathMatchingFilter {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    /**
+     * 对 admin 资源的访问请求预处理
+     */
     @Override
     protected boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+        // 放行 options 方法
         if (HttpMethod.OPTIONS.toString().equals(httpServletRequest.getMethod())) {
             httpServletResponse.setStatus(HttpStatus.NO_CONTENT.value());
             return true;

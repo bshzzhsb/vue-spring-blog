@@ -2,7 +2,6 @@ import { constantRoutes, asyncRoutes } from "../../router";
 
 const state = {
     routes: [],
-    addRoutes: [],
 };
 
 const mutations = {

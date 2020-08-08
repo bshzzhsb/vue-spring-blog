@@ -15,6 +15,9 @@ public class MyWebConfig implements WebMvcConfigurer {
     @Value("${image.path}")
     private String path;
 
+    /**
+     * 图片资源 url 处理
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/hsblog/images/upload/**")

@@ -17,6 +17,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
+ * subject: 当前正在执行的用户、第三方进程等等（代表安全操作）
+ * SecurityManager: 管理用户的安全操作
+ * Realm: Shiro 和安全相关数据的桥梁，如用户信息
  * @author SipooHe
  * @date 2020/4/12 14:53
  */
@@ -28,6 +31,9 @@ public class ShiroConfig {
         return new LifecycleBeanPostProcessor();
     }
 
+    /**
+     * 对 admin 开头的 url 设置访问拦截。
+     */
     @Bean
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -72,6 +78,9 @@ public class ShiroConfig {
         return authorizationAttributeSourceAdvisor;
     }
 
+    /**
+     * @return 访问权限拦截器
+     */
     public URLPathMatchingFilter getURLPathMatchingFilter() {
         return new URLPathMatchingFilter();
     }
