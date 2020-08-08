@@ -54,13 +54,13 @@
           username: this.loginForm.username,
           password: this.loginForm.password,
         })
-          .then(response => {
+          .then(async response => {
             console.log(response);
             if (response.data.status === 200) {
-              this.$store.dispatch('user/login', response.data.object);
-              console.log(this.$store.state.user.token)
+              const roles = await this.$store.dispatch('user/login', response.data.object);
+              await this.$store.dispatch('permission/generateRoutes', roles)
               var path = this.$route.query.redirect;
-              this.$router.replace({path: path === undefined ? '/admin/home' : path})
+              await this.$router.replace({path: path === undefined ? '/admin/home' : path})
             }
           })
           .catch(error => {

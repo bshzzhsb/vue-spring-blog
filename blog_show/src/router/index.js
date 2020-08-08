@@ -232,7 +232,6 @@ export const errorRoutes = [
   {
     path: '*',
     redirect: '/404',
-    hidden: true,
   }
 ];
 

@@ -1,12 +1,12 @@
-import router, {errorRoutes, resetRouter} from "./router";
+import router, { resetRouter } from "./router";
+import { Message } from "element-ui";
 import store from "./store";
 import getPageTitle from "./utils/getPageTitle";
 
 router.beforeEach(async (to, from, next) => {
   document.title = getPageTitle(to.meta.title);
-  const hasRoles = store.getters.roles || [];
-  console.log(hasRoles)
-  if (hasRoles.length === 0) {
+  const roles = store.getters.roles || [];
+  if (roles.length === 0) {
     if (to.path === '/admin/login') {
       await store.dispatch('user/resetToken');
       await store.dispatch('tagsView/initViews');
@@ -16,10 +16,6 @@ router.beforeEach(async (to, from, next) => {
       try {
         const roles = await store.dispatch('user/getInfo');
         const accessRoutes = await store.dispatch('permission/generateRoutes', roles);
-        router.addRoutes(accessRoutes);
-        router.addRoutes(errorRoutes);
-        console.log(roles)
-        console.log(to)
         next({path: to.fullPath, replace: true})
       } catch (error) {
         console.log(error)
@@ -30,8 +26,9 @@ router.beforeEach(async (to, from, next) => {
       }
     }
   } else {
-    if (hasRoles.includes("admin")) {
+    if (roles.includes("admin")) {
       if (to.path === '/admin/login') {
+        Message.success("您已登录！请先退出登录")
         next({path: '/admin/home'});
       } else {
         next()
@@ -42,7 +39,7 @@ router.beforeEach(async (to, from, next) => {
         await store.dispatch('tagsView/initViews');
         resetRouter();
         next();
-      } else if (to.path.startsWith("/admin")) {
+      } else if (to.redirectedFrom.startsWith("/admin")) {
         next({path: '/admin/login'});
       } else {
         next();

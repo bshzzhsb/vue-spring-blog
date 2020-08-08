@@ -16,13 +16,14 @@ const mutations = {
 };
 
 const actions = {
-  login({commit}, token) {
+  login({ commit, state }, token) {
     commit('SET_TOKEN', token);
+    commit('SET_ROLES', ['admin']);
     setToken(token);
+    return state.roles;
   },
   getInfo({commit, state}) {
     if (getToken()) {
-      console.log("set admin")
       commit('SET_ROLES', ['admin']);
     } else {
       commit('SET_ROLES', ['client'])
@@ -33,7 +34,6 @@ const actions = {
     commit('SET_TOKEN', '');
     commit('SET_ROLES', []);
     removeToken();
-    // dispatch('tagsView/delAllViews', null, { root: true });
     dispatch('tagsView/initViews', null, {root: true});
   },
   resetToken({commit}) {
