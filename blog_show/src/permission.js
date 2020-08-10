@@ -6,6 +6,7 @@ import getPageTitle from "./utils/getPageTitle";
 router.beforeEach(async (to, from, next) => {
   document.title = getPageTitle(to.meta.title);
   const roles = store.getters.roles || [];
+  console.log(to)
   if (roles.length === 0) {
     if (to.path === '/admin/login') {
       await store.dispatch('user/resetToken');
@@ -39,7 +40,7 @@ router.beforeEach(async (to, from, next) => {
         await store.dispatch('tagsView/initViews');
         resetRouter();
         next();
-      } else if (to.redirectedFrom.startsWith("/admin")) {
+      } else if (to.redirectedFrom && to.redirectedFrom.startsWith("/admin")) {
         next({path: '/admin/login'});
       } else {
         next();
