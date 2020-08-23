@@ -2,7 +2,9 @@ import Vue from 'vue'
 import VueX from 'vuex'
 import getters from "./getters";
 
-Vue.use(VueX);
+if (process.env.NODE_ENV === 'development') {
+  Vue.use(VueX);
+}
 
 // require.context("目录", "是否遍历子目录", "正则")
 const modulesFiles = require.context('./modules', true, /\.js$/);

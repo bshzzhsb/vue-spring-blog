@@ -3,8 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import ELEMENT from 'element-ui'
 import axios from 'axios'
 import VueAxios from "vue-axios";
 import store from "./store";
@@ -14,12 +13,16 @@ import mavonEditor from "mavon-editor";
 import 'mavon-editor/dist/css/index.css'
 import './permission'
 
+if (process.env.NODE_ENV === 'development') {
+  require('element-ui/lib/theme-chalk/index.css')
+}
+
 import './assets/css/blog.css'
 import './assets/js/iconfont'
 
 Vue.config.productionTip = false;
 
-Vue.use(ElementUI);
+Vue.use(ELEMENT);
 
 axios.defaults.baseURL = "/hsblog";
 axios.defaults.withCredentials = true;

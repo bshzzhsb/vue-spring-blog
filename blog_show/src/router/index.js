@@ -1,60 +1,38 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Register from "../components/admin/Register";
-import Login from "../components/admin/Login";
-import AdminHome from "../components/admin/home/AdminHome"
-import Admin from "../components/admin/Admin";
-import BlogManager from "../components/admin/blog/BlogManager";
-import Blogging from "../components/admin/blogging/Blogging";
-import TypeTable from "../components/admin/type/TypeTable";
-import TypeAndTag from "../components/admin/type/TypeAndTag";
-import TagTable from "../components/admin/type/TagTable";
-import Redirect from "../components/common/Redirect";
-import MoodManager from "../components/admin/mood/MoodManager";
-import Mood from "../components/admin/mood/Mood";
-import Mooding from "../components/admin/mood/Mooding";
-import MessageManager from "../components/admin/message/MessageManager";
-import Layout from "../components/layout/Layout";
-import Index from "../components/layout/index/Index";
-import Page404 from '../components/error/404';
-import Blog from "../components/layout/blog/Blog";
-import TypeAndTagShow from "../components/layout/type/TypeAndTagShow";
-import TypeShow from "../components/layout/type/TypeShow";
-import TagShow from "../components/layout/type/TagShow";
-import Message from "../components/layout/message/Message";
-import MoodShow from "../components/layout/mood/MoodShow";
-import ArchiveShow from "../components/layout/archive/ArchiveShow";
 
-Vue.use(VueRouter);
+if (process.env.NODE_ENV === 'development') {
+  Vue.use(VueRouter);
+}
 
 export const constantRoutes = [
   {
     path: '/admin/login',
     name: 'Login',
-    component: Login,
+    component: () => import("../components/admin/Login"),
     meta: {
       requireAuth: false,
     }
   },
   {
     path: '/redirect/:path(.*)',
-    component: Redirect,
+    component: () => import("../components/common/Redirect"),
   },
   {
     path: '/404',
     name: '404',
-    component: Page404,
+    component: () => import("../components/error/404"),
   },
   {
     path: '/',
     name: 'Layout',
     redirect: '/index',
-    component: Layout,
+    component: () => import("../components/layout/Layout"),
     children: [
       {
         path: '/index',
         name: 'Index',
-        component: Index,
+        component: () => import("../components/layout/index/Index"),
         meta: {
           title: '首页',
           affix: true,
@@ -63,7 +41,7 @@ export const constantRoutes = [
       {
         path: '/blog/:id',
         name: 'Blog',
-        component: Blog,
+        component: () => import("../components/layout/blog/Blog"),
         meta: {
           title: '博客',
         }
@@ -71,13 +49,13 @@ export const constantRoutes = [
       {
         path: 'typeandtag',
         name: 'TypeAndTagShow',
-        component: TypeAndTagShow,
+        component: () => import("../components/layout/type/TypeAndTagShow"),
         redirect: '/type',
         children: [
           {
             path: '/type',
             name: 'TypeShow',
-            component: TypeShow,
+            component: () => import("../components/layout/type/TypeShow"),
             meta: {
               title: '分类'
             }
@@ -85,7 +63,7 @@ export const constantRoutes = [
           {
             path: '/tag',
             name: 'TagShow',
-            component: TagShow,
+            component: () => import("../components/layout/type/TagShow"),
             meta: {
               title: '标签'
             }
@@ -95,7 +73,7 @@ export const constantRoutes = [
       {
         path: '/message',
         name: 'Message',
-        component: Message,
+        component: () => import("../components/layout/message/Message"),
         meta: {
           title: '留言'
         }
@@ -103,7 +81,7 @@ export const constantRoutes = [
       {
         path: '/mood',
         name: 'MoodShow',
-        component: MoodShow,
+        component: () => import("../components/layout/mood/MoodShow"),
         meta: {
           title: '动态'
         }
@@ -111,7 +89,7 @@ export const constantRoutes = [
       {
         path: '/archive',
         name: 'ArchiveShow',
-        component: ArchiveShow,
+        component: () => import("../components/layout/archive/ArchiveShow"),
         meta: {
           title: '归档',
         }
@@ -124,7 +102,7 @@ export const asyncRoutes = [
   {
     path: '/admin/register',
     name: 'Register',
-    component: Register,
+    component: () => import("../components/admin/Register"),
     meta: {
       requireAuth: true,
     },
@@ -133,12 +111,12 @@ export const asyncRoutes = [
     path: '/admin',
     name: 'Admin',
     redirect: '/admin/home',
-    component: Admin,
+    component: () => import("../components/admin/Admin"),
     children: [
       {
         path: 'home',
         name: 'AdminHome',
-        component: AdminHome,
+        component: () => import("../components/admin/home/AdminHome"),
         meta: {
           requireAuth: true,
           title: '主页',
@@ -148,7 +126,7 @@ export const asyncRoutes = [
       {
         path: 'blog',
         name: 'BlogManager',
-        component: BlogManager,
+        component: () => import("../components/admin/blog/BlogManager"),
         meta: {
           requireAuth: true,
           title: '博客',
@@ -157,7 +135,7 @@ export const asyncRoutes = [
       {
         path: 'blogging',
         name: 'Blogging',
-        component: Blogging,
+        component: () => import("../components/admin/blogging/Blogging"),
         meta: {
           requireAuth: true,
           title: '写博客',
@@ -166,13 +144,13 @@ export const asyncRoutes = [
       {
         path: 'typeandtag',
         name: 'TypeAndTag',
-        component: TypeAndTag,
+        component: () => import("../components/admin/type/TypeAndTag"),
         redirect: '/admin/type',
         children: [
           {
             path: '/admin/type',
             name: 'TypeTable',
-            component: TypeTable,
+            component: () => import("../components/admin/type/TypeTable"),
             meta: {
               requireAuth: true,
               title: '分类'
@@ -181,7 +159,7 @@ export const asyncRoutes = [
           {
             path: '/admin/tag',
             name: 'TagTable',
-            component: TagTable,
+            component: () => import("../components/admin/type/TagTable"),
             meta: {
               requireAuth: true,
               title: '标签'
@@ -192,13 +170,13 @@ export const asyncRoutes = [
       {
         path: "moodmanager",
         name: "MoodManager",
-        component: MoodManager,
+        component: () => import("../components/admin/mood/MoodManager"),
         redirect: '/admin/mood',
         children: [
           {
             path: '/admin/mood',
             name: 'Mood',
-            component: Mood,
+            component: () => import("../components/admin/mood/Mood"),
             meta: {
               requireAuth: true,
               title: '动态',
@@ -207,7 +185,7 @@ export const asyncRoutes = [
           {
             path: '/admin/mooding',
             name: 'Mooding',
-            component: Mooding,
+            component: () => import("../components/admin/mood/Mooding"),
             meta: {
               requireAuth: true,
               title: '写动态',
@@ -218,7 +196,7 @@ export const asyncRoutes = [
       {
         path: 'message',
         name: 'MessageManager',
-        component: MessageManager,
+        component: () => import("../components/admin/message/MessageManager"),
         meta: {
           requireAuth: true,
           title: '留言'
