@@ -44,8 +44,8 @@
                     v-model="comment.content">
           </el-input>
           <div class="form-btn">
-            <button v-if="cancelVisible" @click="cancelReply" class="cancel-btn">取消回复</button>
-            <button class="reply-btn" @click="onSubmit">回复</button>
+            <button v-if="cancelVisible" @click.prevent="cancelReply" class="cancel-btn">取消回复</button>
+            <button class="reply-btn" @click.prevent="onSubmit">回复</button>
           </div>
         </el-form-item>
         <el-form-item prop="nickname" class="reply-item">

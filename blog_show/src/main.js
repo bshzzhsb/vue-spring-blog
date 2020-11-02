@@ -12,6 +12,7 @@ import * as filters from './filter'
 import mavonEditor from "mavon-editor";
 import 'mavon-editor/dist/css/index.css'
 import './permission'
+import Highlight from "./utils/highlight";
 
 if (process.env.NODE_ENV === 'development') {
   require('element-ui/lib/theme-chalk/index.css')
@@ -43,6 +44,8 @@ Vue.use(VueProgressBar, {
 });
 
 Vue.use(mavonEditor);
+
+Vue.use(Highlight)
 
 Object.keys(filters).forEach(key => {
     Vue.filter(key, filters[key])
